@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="721.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paka.newOrderCTRL">
+    <children>
+          <GridPane hgap="10.0" layoutX="50.0" layoutY="21.0" minHeight="-Infinity" prefWidth="850.0" vgap="10.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="503.0" minWidth="10.0" prefWidth="419.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="413.0" minWidth="10.0" prefWidth="401.0" />
+              </columnConstraints>
+              <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+              <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+               <children>
+                  <Label alignment="CENTER" text="Pasūtījuma numurs">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                        <TextField fx:id="pasNrFX" onKeyReleased="#checkOrderNumber" prefHeight="27.0" prefWidth="129.0" promptText="Pasūtījuma numurs">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                        </TextField>
+                  <Label fx:id="badOrderNumFX" prefHeight="17.0" prefWidth="442.0" text="   " HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+                  <ComboBox fx:id="customerFX" prefHeight="27.0" prefWidth="410.0" promptText="Klients" visibleRowCount="5" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                      <GridPane.margin>
+                          <Insets />
+                      </GridPane.margin>
+                  </ComboBox>
+                  <TextField fx:id="jobNameFX" promptText="Darba nosaukums" GridPane.rowIndex="3" />
+                  <CheckBox fx:id="jobSheetYNFX" mnemonicParsing="false" text="Izdrukāta darba lapa" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="reproFX" layoutX="347.0" layoutY="50.0" prefHeight="63.0" prefWidth="200.0" promptText="Repro" GridPane.rowIndex="5">
+                      <items>
+                          <FXCollections fx:factory="observableArrayList">
+                              <String fx:id="neviensFX" fx:value="" />
+                              <String fx:id="gunarsFX" fx:value="Gunārs" />
+                              <String fx:id="lindaFX" fx:value="Linda" />
+                              <String fx:id="gerdaFX" fx:value="Gerda" />
+                              <String fx:id="kristiansFX" fx:value="Kristiāns" />
+                              <String fx:id="mariteFXFX" fx:value="Mārīte" />
+                          </FXCollections>
+                      </items>
+                  </ComboBox>
+            <ComboBox fx:id="projectManagerFX" prefHeight="63.0" prefWidth="200.0" promptText="Projekta vadītājs" GridPane.rowIndex="6">
+            </ComboBox>
+            <ComboBox fx:id="paperStateFX" prefHeight="63.0" prefWidth="200.0" promptText="Papīrs" GridPane.rowIndex="7">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:id="navPasutits" fx:value="Nav pasūtīts" />
+                     <String fx:id="pasutīts" fx:value="Ir pasutīts" />
+                     <String fx:id="noliktava" fx:value="Ir noliktavā" />
+                     <String fx:id="nevajag" fx:value="Nevajag" />
+                     <String fx:id="atvests" fx:value="Atvests" />
+                     <String fx:id="sagriezts" fx:value="Sagriezts" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
+                  <GridPane GridPane.columnSpan="2" GridPane.rowIndex="8">
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                      <children>
+                          <CheckBox fx:id="offsetYNFX" mnemonicParsing="false" text="Ofsets" />
+                          <CheckBox fx:id="digitalYNFX" mnemonicParsing="false" text="Digitālais" GridPane.columnIndex="1" />
+                          <CheckBox fx:id="designYNFX" mnemonicParsing="false" text="Dizains" GridPane.columnIndex="2" />
+                          <CheckBox fx:id="largeFormatYNFX" mnemonicParsing="false" text="Lielformāts" GridPane.columnIndex="3" />
+                          <CheckBox fx:id="postPressYNFX" mnemonicParsing="false" text="Pēcapstrāde" GridPane.columnIndex="4" />
+                  <CheckBox fx:id="otherJobFX" mnemonicParsing="false" text="Cits darbs" GridPane.columnIndex="5" />
+                      </children>
+                      <padding>
+                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                      </padding>
+                  </GridPane>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="9">
+                      <children>
+                          <Label alignment="CENTER" text="Atdošanas datums">
+                              <opaqueInsets>
+                                  <Insets />
+                              </opaqueInsets>
+                              <HBox.margin>
+                                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              </HBox.margin>
+                  </Label>
+                          <DatePicker fx:id="dueDateFX" prefHeight="26.0" prefWidth="246.0">
+                              <opaqueInsets>
+                                  <Insets />
+                              </opaqueInsets>
+                  </DatePicker>
+                      </children>
+                  </HBox>
+                  <CheckBox fx:id="printedYNFX" mnemonicParsing="false" text="Nodrukāts" GridPane.rowIndex="10" />
+            <ComboBox fx:id="projectStateFX" prefHeight="30.0" prefWidth="403.0" promptText="Darba statuss" GridPane.rowIndex="11">
+               <items>
+                   <FXCollections fx:factory="observableArrayList">
+                       <String fx:id="atceltsFX" fx:value="Atcelts" />
+                       <String fx:id="gaidamFailuFX" fx:value="Gaidam failu" />
+                       <String fx:id="apstadinatsProblFX" fx:value="Apstādināts – ir problēmas" />
+                       <String fx:id="stiprinasFX" fx:value="Stiprinās" />
+                       <String fx:id="apstiprinatsFX" fx:value="Viss kārtībā – taisam augšā" />
+                   </FXCollections>
+               </items>
+            </ComboBox>
+                  <TextArea fx:id="notesFX" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="13" />
+                  <Button fx:id="saveOrderButtonFX" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveOrder" prefWidth="150.0" text="Saglabāt pasūtījumu" textAlignment="CENTER" GridPane.rowIndex="14" />
+                  <Button fx:id="cancelButtonFX" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backToMain" prefWidth="150.0" text="Atteikt" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                  <Label text="Piezīmes" GridPane.rowIndex="12">
+                      <GridPane.margin>
+                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                      </GridPane.margin>
+                  </Label>
+            <Label text="Jauns pasūtījums">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+                  <Button fx:id="addCustomerButtonFX" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#addCustomer2" prefWidth="150.0" text="Pievienot klientu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                      <GridPane.margin>
+                          <Insets right="10.0" />
+                      </GridPane.margin>
+                  </Button>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Jauns klients">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="customerTextFieldFX" onAction="#customerOnType" prefHeight="26.0" prefWidth="194.0" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+
+              </children>
+              <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+              </padding>
+
+          </GridPane>
+    </children>
+</AnchorPane>
