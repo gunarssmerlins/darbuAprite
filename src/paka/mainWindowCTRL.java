@@ -154,7 +154,6 @@ public class mainWindowCTRL implements Initializable {
         // 3. Padod FilteredList uz SortedList.
         SortedList<orderClass> sortedData = new SortedList<>(filteredData);
 
-        // 4. Bind the SortedList comparator to the TableView comparator.
         sortedData.comparatorProperty().bind(tableFX.comparatorProperty());
 
         // 5. Padod sakārtoto sarakstu.
