@@ -176,6 +176,7 @@ public class mainWindowCTRL implements Initializable {
                     viewOrderButtonFX.setDisable(false);
                 }
 
+                // pārbauda vai pasūtījums nav lietošanā citur un ja ir, tad neļauj atvērt
                 Boolean checkLock;
                 mysqlConnection mysqlConnection = new mysqlConnection();
                 Connection connection = mysqlConnection.getConnection();
