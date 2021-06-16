@@ -5,6 +5,7 @@
 package paka;
 
 import connectivity.mysqlConnection;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -22,13 +23,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class mainWindowCTRL implements Initializable {
@@ -69,7 +70,6 @@ public class mainWindowCTRL implements Initializable {
         projVadColFX.setPrefWidth(70);
         dueDateColFX.setPrefWidth(80);
         printedYNFX.setPrefWidth(60);
-//        pasNrColFX.setCellValueFactory();
 
         tableFX.getColumns().addAll(pasNrColFX, darbaNosColFX, klientsColFX, darbaLapaYNColFX,
                 reproColFX, papirsColFX, projVadColFX, dueDateColFX, printedYNFX);
@@ -143,11 +143,10 @@ public class mainWindowCTRL implements Initializable {
 
                 if (pas.getPasNr().toLowerCase().contains(lowerCaseFilter)) {
                     return true;        // filtrē pēc pas numura
-                } else if (pas.getDarbaNosaukums().toLowerCase().contains(lowerCaseFilter)) {
+                } else // ja nav, tad nav
+                    if (pas.getDarbaNosaukums().toLowerCase().contains(lowerCaseFilter)) {
                     return true;        // filtrē pēc darba nosaukuma
-                } else if (pas.getKlients().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;        // filtrē pēc klienta
-                } else return false; // ja nav, tad nav
+                } else return pas.getKlients().toLowerCase().contains(lowerCaseFilter);        // filtrē pēc klienta
             });
         });
 
@@ -172,11 +171,35 @@ public class mainWindowCTRL implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
-//                    System.out.println(tableFX.getSelectionModel().getSelectedItem().getPasNr());
                     orderNumToEdit = tableFX.getSelectionModel().getSelectedItem().getPasNr();
                     viewOrderButtonFX.setText("Skatīt " + orderNumToEdit);
                     viewOrderButtonFX.setDisable(false);
                 }
+
+                Boolean checkLock;
+                mysqlConnection mysqlConnection = new mysqlConnection();
+                Connection connection = mysqlConnection.getConnection();
+                String sql2 = "SELECT orderlock FROM orders.orders WHERE pasNr LIKE '" + orderNumToEdit + "'";
+
+                try {
+                    Statement pst2 = connection.prepareStatement(sql2);
+                    ResultSet rs2 = pst2.executeQuery(sql2);
+                    while (rs2.next()) {
+                        checkLock = rs2.getBoolean("orderlock");
+                        System.out.println(rs2.getBoolean("orderlock"));
+                        if(checkLock == true) {
+                            viewOrderButtonFX.setDisable(true);
+                            viewOrderButtonFX.setText(orderNumToEdit + " Aizņemts");
+
+                        }
+                    }
+                    pst2.close();
+                    rs2.close();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+
             }
         });
 
@@ -189,14 +212,33 @@ public class mainWindowCTRL implements Initializable {
         }
 
 
-        tableFX.setRowFactory(row -> new TableRow<orderClass>(){
-            @Override
-            public void updateItem(orderClass item, boolean empty){
-                super.updateItem(item, empty);
-                LocalDate today = LocalDate.now();
-                int todayStamp;
+        papirsColFX.setCellFactory((tableColumn) -> {
+            TableCell<orderClass, String> tableCell = new TableCell<>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
 
-                todayStamp = parseDate(today.toString());
+                    this.setText(null);
+                    this.setGraphic(null);
+
+                    if(!empty){
+                        this.setText(item.toUpperCase());
+//                        this.setTextFill(Color.WHITE);
+                    }
+                }
+            };
+
+            return tableCell;
+        });
+
+
+        tableFX.setRowFactory(row -> new TableRow<>() {
+            @Override
+            public void updateItem(orderClass item, boolean empty) {
+                super.updateItem(item, empty);
+
+                LocalDate today = LocalDate.now();
+                int todayStamp = parseDate(today.toString());
 
                 if (item == null || empty) {
                     setStyle("");
@@ -210,66 +252,65 @@ public class mainWindowCTRL implements Initializable {
 
                         //iekrāso visas atbilstošās rindas šūnas
                         if (item.isNodrukatsYN()) {
-                            for (int i=0; i<getChildren().size(); i++){
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.WHITE);
                                 getChildren().get(i).setStyle("-fx-background-color: green");
                             }
                         }
                         if (item.isNodrukatsYN() && getTableView().getSelectionModel().getSelectedItems().contains(item)) {
-                            for (int i=0; i<getChildren().size(); i++){
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.GREEN);
                                 getChildren().get(i).setStyle("-fx-background-color: blue");
                             }
                         }
 //
                         if (parseDate(item.getIzpildesDatums()) <= todayStamp + 1 && (item.getRepro().equals("") || item.getRepro().equals("null"))) {
-                            for (int i=0; i<getChildren().size(); i++){
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.BLACK);
                                 getChildren().get(i).setStyle("-fx-background-color: red");
                             }
                         }
                         if ((parseDate(item.getIzpildesDatums()) <= todayStamp + 1 && (item.getRepro().equals("") || item.getRepro().equals("null"))) && getTableView().getSelectionModel().getSelectedItems().contains(item)) {
-                            for (int i=0; i<getChildren().size(); i++){
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.RED);
                                 getChildren().get(i).setStyle("-fx-background-color: blue");
                             }
                         }
 
                         if (item.getDarbaStatuss().equals("Apstādināts – ir problēmas")) {
-                            for (int i=0; i<getChildren().size(); i++){
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.RED);
                                 getChildren().get(i).setStyle("-fx-background-color: white");
                             }
                         }
                         if (item.getDarbaStatuss().equals("Apstādināts – ir problēmas") && getTableView().getSelectionModel().getSelectedItems().contains(item)) {
-                            for (int i=0; i<getChildren().size(); i++){
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.RED);
                                 getChildren().get(i).setStyle("-fx-background-color: blue");
                             }
                         }
 
                         if (item.getDarbaStatuss().equals("Stiprinās")) {
-                            for (int i=0; i<getChildren().size(); i++){
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.GREEN);
                                 getChildren().get(i).setStyle("-fx-background-color: white");
                             }
                         }
                         if (item.getDarbaStatuss().equals("Stiprinās") && getTableView().getSelectionModel().getSelectedItems().contains(item)) {
-                            for (int i=0; i<getChildren().size(); i++){
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.GREEN);
                                 getChildren().get(i).setStyle("-fx-background-color: blue");
                             }
                         }
 
                     } else { // vienkārši iezīmēta rinda
-                        if (getTableView().getSelectionModel().getSelectedItems().contains(item)){ //selected colors
-                            for(int i=0; i<getChildren().size();i++){
+                        if (getTableView().getSelectionModel().getSelectedItems().contains(item)) { //selected colors
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.WHITE);
                                 getChildren().get(i).setStyle("-fx-background-color: blue");
                             }
-                        }
-                        else { //neatbilst atlasei >> normāls stils
-                            for(int i=0; i<getChildren().size();i++){
+                        } else { //neatbilst atlasei >> normāls stils
+                            for (int i = 0; i < getChildren().size(); i++) {
                                 ((Labeled) getChildren().get(i)).setTextFill(Color.BLACK);
                                 getChildren().get(i).setStyle(""); //-fx-background-color: white
                             }

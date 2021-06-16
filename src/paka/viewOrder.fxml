@@ -70,7 +70,7 @@
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:id="navPasutits" fx:value="Nav pasūtīts" />
-                     <String fx:id="pasutīts" fx:value="Ir pasutīts" />
+                     <String fx:id="pasutīts" fx:value="Ir pasūtīts" />
                      <String fx:id="noliktava" fx:value="Ir noliktavā" />
                      <String fx:id="nevajag" fx:value="Nevajag" />
                      <String fx:id="atvests" fx:value="Atvests" />
