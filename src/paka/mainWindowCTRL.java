@@ -196,6 +196,7 @@ public class mainWindowCTRL implements Initializable {
                     }
                     pst2.close();
                     rs2.close();
+                    connection.close();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

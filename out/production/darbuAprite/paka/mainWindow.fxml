@@ -20,8 +20,8 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="191.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="242.0" minWidth="10.0" prefWidth="242.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.19998779296873" minWidth="10.0" prefWidth="153.39999999999998" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="113.39999999999998" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="142.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="79.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="211.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -58,7 +58,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </GridPane.margin>
                 </TextField>
-            <Button fx:id="viewOrderButtonFX" mnemonicParsing="false" onAction="#viewOrder" text="Skatīt pasūtījumu" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <Button fx:id="viewOrderButtonFX" mnemonicParsing="false" onAction="#viewOrder" prefHeight="25.0" prefWidth="197.0" text="Skatīt pasūtījumu" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin></Button>
@@ -70,18 +70,7 @@
         <AnchorPane layoutY="200.0" prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
             <children>
                 <TableView fx:id="tableFX" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-<!--                    <columns>-->
-<!--                        <TableColumn fx:id="pasNrColFX" prefWidth="86.0" text="PasNumurs" />-->
-<!--                        <TableColumn fx:id="darbaNosColFX" prefWidth="204.0" text="Darba nos." />-->
-<!--                        <TableColumn fx:id="klientsColFX" minWidth="0.0" prefWidth="78.0" text="Klients" />-->
-<!--                        <TableColumn fx:id="darbaLapaYNColFX" prefWidth="53.0" text="D-lapa" />-->
-<!--                        <TableColumn fx:id="reproColFX" prefWidth="77.0" text="Repro" />-->
-<!--                        <TableColumn fx:id="papirsColFX" prefWidth="88.0" text="Papīrs" />-->
-<!--                        <TableColumn fx:id="projVadColFX" prefWidth="110.0" text="Menedžeris" />-->
-<!--                        <TableColumn fx:id="dueDateColFX" prefWidth="120.0" text="Atdošanas dat." />-->
-<!--                        <TableColumn fx:id="orderLockFX" prefWidth="40" text="Lock" />-->
-<!--&lt;!&ndash;                        <TableColumn fx:id="editOrderFX" maxWidth="81.0" minWidth="50.0" prefWidth="81.0" text="Skatīt" />&ndash;&gt;-->
-<!--                    </columns>-->
+
                 </TableView>
 
             </children>

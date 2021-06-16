@@ -154,7 +154,7 @@ public class viewOrderCTRL implements Initializable {
                 throwables.printStackTrace();
             }
         }
-        System.out.println("Orderlok - " + orderLock);
+//        System.out.println("Orderlok - " + orderLock);
 
         if(!orderLock){
             String query1 = "UPDATE ORDERS.orders SET orderlock = 1 WHERE pasNr = '" + pasNr + "'";
