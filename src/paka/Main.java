@@ -12,6 +12,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Parent root = FXMLLoader.load(getClass().getResource("authorise.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("printerMain.fxml"));
         primaryStage.setTitle("Darbu aprite");
         primaryStage.setScene(new Scene(root, 350, 350));
         primaryStage.setResizable(false);

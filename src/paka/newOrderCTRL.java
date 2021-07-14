@@ -59,7 +59,7 @@ public class newOrderCTRL implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        customerFX.setVisibleRowCount(15);
         pasNrFX.requestFocus();
 
         try { listCustomers(); } catch (SQLException throwables) { throwables.printStackTrace(); }
@@ -121,18 +121,18 @@ public class newOrderCTRL implements Initializable {
             if(actionEvent.getCode() != KeyCode.TAB && actionEvent.getCode() != KeyCode.ENTER && actionEvent.getCode() != KeyCode.UP&& actionEvent.getCode() != KeyCode.DOWN){
                 typedString = typedString + actionEvent.getCode();
                 t2 = timeStamp.getTime();
-
+//                System.out.println(actionEvent.getCode());
                 if(t2 - t1 > 2000){
                     typedString = actionEvent.getCode().toString();
                 }
-                System.out.println("typedChar = " + actionEvent.getCode() + "\ttypedString = " + typedString + "\ttimediff = " + (t2-t1));
                 t1 = t2;
-                customerFX.show();
 
+                customerFX.show();
             }
 
             ObservableList<String> optionsC = FXCollections.observableArrayList();
             String sql2 = "SELECT * FROM orders.customers WHERE companyName LIKE '" + typedString + "%'";
+            if (actionEvent.getCode() == KeyCode.MULTIPLY) sql2 = "SELECT * FROM orders.customers";
             System.out.println(typedString);
 
             try {
@@ -143,6 +143,12 @@ public class newOrderCTRL implements Initializable {
                     optionsC.add(rs2.getString("companyName"));
                     customerFX.setValue(rs2.getString("companyName"));
                 }
+
+                if (i > 15) {
+                    customerFX.setVisibleRowCount(15);
+                } else {
+                    customerFX.setVisibleRowCount(i);
+                }
                 pst2.close();
                 rs2.close();
             } catch (SQLException throwables) {
@@ -151,7 +157,7 @@ public class newOrderCTRL implements Initializable {
 
             Collections.sort(optionsC);
             customerFX.setItems(optionsC);
-            customerFX.setVisibleRowCount(i);
+
         });
     }
 

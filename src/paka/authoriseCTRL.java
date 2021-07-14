@@ -18,11 +18,13 @@ public class authoriseCTRL {
 
 ////////////////////////////////////////////////////////////
 /*                Uz pasūtījumu kopskatu                  */
+////////////////////////////////////////////////////////////
 
     public void switchToOrders(ActionEvent event) throws IOException {
         Parent viewOrders = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
+//        Parent viewOrders = FXMLLoader.load(getClass().getResource("printerMain.fxml"));
+
         Scene viewOrdersScene = new Scene(viewOrders);
-//        viewOrdersScene.getStylesheets().add("CSS/t.css");
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setTitle("Pasūtījumi");
         window.setScene(viewOrdersScene);

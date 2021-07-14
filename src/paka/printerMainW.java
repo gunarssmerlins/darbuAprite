@@ -22,6 +22,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import paka.orderClass;
+import paka.viewOrderCTRL;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +34,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class mainWindowCTRL implements Initializable {
+public class printerMainW implements Initializable {
 
     @FXML public TextField findByOrderNumFX;
     @FXML private Button viewOrderButtonFX;
@@ -46,7 +48,7 @@ public class mainWindowCTRL implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        newOrderFX.requestFocus();
+//        newOrderFX.requestFocus();
         viewOrderButtonFX.setDisable(true);
 
         // kolonnas
@@ -58,7 +60,8 @@ public class mainWindowCTRL implements Initializable {
         TableColumn papirsColFX = new TableColumn("Papīrs");
         TableColumn projVadColFX = new TableColumn("Menedžeris");
         TableColumn dueDateColFX = new TableColumn("Izp.datums");
-        TableColumn printedYNFX = new TableColumn("Nodrukāts?");
+//        TableColumn printedYNFX = new TableColumn("Nodrukāts?");
+
         // un to platumi
         pasNrColFX.setPrefWidth(70);
         darbaNosColFX.setPrefWidth(220);
@@ -69,22 +72,22 @@ public class mainWindowCTRL implements Initializable {
         papirsColFX.setPrefWidth(90);
         projVadColFX.setPrefWidth(70);
         dueDateColFX.setPrefWidth(80);
-        printedYNFX.setPrefWidth(60);
+//        printedYNFX.setPrefWidth(60);
 
         tableFX.getColumns().addAll(pasNrColFX, darbaNosColFX, klientsColFX, darbaLapaYNColFX,
-                reproColFX, papirsColFX, projVadColFX, dueDateColFX, printedYNFX);
+                reproColFX, papirsColFX, projVadColFX, dueDateColFX/*, printedYNFX*/);
 
         mysqlConnection mysqlConnection = new mysqlConnection();
         Connection connection = mysqlConnection.getConnection();
         String sql;
 
-        sql = "select orders.orderID, orders.pasNr, orders.customerID, orders.managerID, customers.companyName, orders.jobName, " +
-                "projectManagers.manager, orders.worksheet, orders.prepressOp, " +
-                "orders.paper, orders.ofsets, orders.digital, orders.design, orders.largeFormat, orders.postpress, orders.otherJob, orders.dueDate, " +
-                "orders.printedYN, orders.projectPrepState, orders.notes, orders.orderLock " +
-                "FROM ORDERS " +
-                "INNER JOIN customers ON orders.CustomerID=customers.CustomerID " +
-                "INNER JOIN projectManagers ON orders.managerID=projectManagers.managerID";
+        sql = "select orders.orderID, orders.pasNr, orders.customerID, orders.managerID, customers.companyName, " +
+                "orders.jobName, projectManagers.manager, orders.worksheet, orders.prepressOp, orders.paper, " +
+                "orders.ofsets, orders.digital, orders.design, orders.largeFormat, orders.postpress, orders.otherJob, " +
+                "orders.dueDate, orders.printedYN, orders.projectPrepState, orders.notes, orders.orderLock " +
+                "FROM ORDERS INNER JOIN customers ON orders.CustomerID=customers.CustomerID " +
+                "INNER JOIN projectManagers ON orders.managerID=projectManagers.managerID " +
+                "WHERE printedYN=false";
 
         Statement pst = null;
         ResultSet rs = null;
@@ -104,7 +107,7 @@ public class mainWindowCTRL implements Initializable {
         papirsColFX.setCellValueFactory(new PropertyValueFactory<>("papiraStatuss"));
         projVadColFX.setCellValueFactory(new PropertyValueFactory<>("manager"));
         dueDateColFX.setCellValueFactory(new PropertyValueFactory<>("izpildesDatums"));
-        printedYNFX.setCellValueFactory(new PropertyValueFactory<>("nodrukatsYN"));
+//        printedYNFX.setCellValueFactory(new PropertyValueFactory<>("nodrukatsYN"));
 //        editOrderFX.setCellValueFactory(new PropertyValueFactory<>("button"));
 
         //ielasu no DB nepieciešamos datus >> "pas" objektā
@@ -171,13 +174,7 @@ public class mainWindowCTRL implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
-                    try {
-                        orderNumToEdit = tableFX.getSelectionModel().getSelectedItem().getPasNr();
-                    }
-                    catch(Exception e) {
-                        System.out.println("tukšā lauka keiss\n" + e);
-                    }
-
+                    orderNumToEdit = tableFX.getSelectionModel().getSelectedItem().getPasNr();
                     viewOrderButtonFX.setText("Skatīt " + orderNumToEdit);
                     viewOrderButtonFX.setDisable(false);
                 }
@@ -344,28 +341,28 @@ public class mainWindowCTRL implements Initializable {
     //////////////////////////////////////////////////////////*/
     String orderNumToEdit;
     public void viewOrder(ActionEvent event) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("viewOrder.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("printerViewOrders.fxml"));
         Parent root = loader.load();
-        viewOrderCTRL viewOrderCTRL = loader.getController();
+        PrinterViewOrders PrinterViewOrders = loader.getController();
 
-        viewOrderCTRL.pasNr = orderNumToEdit;
-        viewOrderCTRL.pasNrLabelFX.setText(orderNumToEdit);
+        PrinterViewOrders.pasNr = orderNumToEdit;
+        PrinterViewOrders.ppasNrFX.setText(orderNumToEdit);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(root));
         window.show();
-        viewOrderCTRL.fillAllFields();
+        PrinterViewOrders.fillAllFields();
     }
 
     /*//////////////////////////////////////////////////////////
                   Izsauc jauna pasūtījuma logu
     //////////////////////////////////////////////////////////*/
-    public void newOrder(ActionEvent event) throws IOException {
-        Parent viewOrders = FXMLLoader.load(getClass().getResource("newOrder.fxml"));
-        Scene viewOrdersScene = new Scene(viewOrders);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(viewOrdersScene);
-        window.show();
-    }
+//    public void newOrder(ActionEvent event) throws IOException {
+//        Parent viewOrders = FXMLLoader.load(getClass().getResource("newOrder.fxml"));
+//        Scene viewOrdersScene = new Scene(viewOrders);
+//        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//
+//        window.setScene(viewOrdersScene);
+//        window.show();
+//    }
 }

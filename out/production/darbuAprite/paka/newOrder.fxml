@@ -91,6 +91,7 @@
                      <String fx:id="nevajag" fx:value="Nevajag" />
                      <String fx:id="atvests" fx:value="Atvests" />
                      <String fx:id="sagriezts" fx:value="Sagriezts" />
+                    <String fx:id="noKlienta" fx:value="Klienta" />
                   </FXCollections>
                </items>
             </ComboBox>

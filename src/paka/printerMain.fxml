@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0"
+            prefWidth="950.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paka.printerMainW">
+    <children>
+        <VBox layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" />
+        <GridPane layoutX="14.0" layoutY="14.0" prefHeight="115.0" prefWidth="922.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="229.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="242.0" minWidth="10.0" prefWidth="226.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.19998779296873" minWidth="10.0" prefWidth="153.39999999999998" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="79.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="211.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Darbu saraksts" GridPane.columnSpan="2">
+                    <font>
+                        <Font name="Arial" size="32.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Meklēt pēc numura vai nosaukuma" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <TextField fx:id="findByOrderNumFX" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </GridPane.margin>
+                </TextField>
+            <Button fx:id="viewOrderButtonFX" mnemonicParsing="false" onAction="#viewOrder" prefHeight="25.0" prefWidth="197.0" text="Skatīt pasūtījumu" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin></Button>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </GridPane>
+        <AnchorPane layoutY="200.0" prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+            <children>
+                <TableView fx:id="tableFX" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+
+                </TableView>
+
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

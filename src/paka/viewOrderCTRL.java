@@ -4,7 +4,6 @@ import connectivity.mysqlConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,7 +47,7 @@ public class viewOrderCTRL implements Initializable {
     @FXML public Label pasNrLabelFX;
 
     orderClass pasutijums = new orderClass();
-    String pasNr;
+    public String pasNr;
     String typedString = "";
     long t1, t2;
     public String searchField;
@@ -67,7 +65,6 @@ public class viewOrderCTRL implements Initializable {
 
         /*/////////////////////////////////////////////////////////////////////////////////
         //Klausītājs klienta kombo boksim uz pirmiem burtiem piemeklē atbilstošus klientus
-        .................nestrādā
         /////////////////////////////////////////////////////////////////////////////////*/
         customerFX.setOnKeyTyped((actionEvent) ->  {
             Calendar c1 = Calendar.getInstance();
@@ -170,7 +167,7 @@ public class viewOrderCTRL implements Initializable {
         }
         else{
             //parādīt info logu par aizņemtu pas
-
+            // nav realižets, jo ir nogriezta vispābā loga atvēršana
         }
 
         try {
